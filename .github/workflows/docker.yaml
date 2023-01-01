@@ -25,8 +25,9 @@ jobs:
     - name: build from github
       run: |
         docker build https://github.com/rstudio/plumber.git#main \
+        -t plumb \
         --build-arg R_VERSION=${{ matrix.r_version }} \
-        --build-arg PLUMBER_REF=v1.0.0 plumb
+        --build-arg PLUMBER_REF=v1.0.0
 
     # https://github.com/marketplace/actions/publish-docker
     - name: docker-push
