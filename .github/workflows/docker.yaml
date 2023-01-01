@@ -37,4 +37,4 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         cache: true
         workdir: "."
-        tags: R${{ matrix.config.tags }}
+        tags: R${{ matrix.r_version }}
