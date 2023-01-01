@@ -1,0 +1,39 @@
+name: Docker
+
+on:
+  push:
+    branches:
+      - "master"
+
+  schedule:
+    - cron:  '0 0 1 * *' # first of every month
+
+jobs:
+  docker:
+    name: ${{ matrix.config.tags }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        r_version:
+          - "latest"
+
+        config:
+        - name: ""
+          tags: "amd64"
+
+    steps:
+    - uses: actions/checkout@v2
+
+    # https://github.com/marketplace/actions/publish-docker
+    - name: docker-push
+      uses: elgohr/Publish-Docker-Github-Action@2.18
+      with:
+        name: jpdugo/nini-app
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        cache: true
+        workdir: "."
+        tags: ${{ matrix.config.tags }}
