@@ -17,21 +17,27 @@ jobs:
       fail-fast: false
 
       matrix:
-        r_version:
-          - "latest"
+        r_version: ["4.0.5", "4.2.2"]
 
         config:
         - name: ""
-          tags: "amd64"
+          tags: ["R4.0.5", "R4.2.2]
+
 
     steps:
     - uses: actions/checkout@v2
+    
+    - name: build from github
+      run: |
+        docker build  https://github.com/rstudio/plumber.git#main \
+        --build-arg R_VERSION=${{ matrix.r_version }} \
+        --build-arg PLUMBER_REF=v1.0.0 plumb
 
     # https://github.com/marketplace/actions/publish-docker
     - name: docker-push
       uses: elgohr/Publish-Docker-Github-Action@2.18
       with:
-        name: jpdugo/nini-app
+        name: jpdugo/plumber
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         cache: true
