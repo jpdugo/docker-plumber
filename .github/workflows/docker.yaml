@@ -17,10 +17,9 @@ jobs:
       fail-fast: false
 
       matrix:
-        r_version: ["4.0.5", "4.2.2"]
-
+        r_version: [4.0.5, 4.2.2]
         config:
-          tags: ["R4.0.5", "R4.2.2]
+          tags: [R4.0.5, R4.2.2]
 
 
     steps:
